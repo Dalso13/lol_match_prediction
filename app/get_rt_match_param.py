@@ -16,5 +16,5 @@ def getMatchParam(json: dict):
     blue_kill = json['info']['teams'][0]['objectives']['champion']['kills']
     red_kill = json['info']['teams'][1]['objectives']['champion']['kills']
 
-    return [[blue_gold.sum(), blue_dragon, blue_tower, blue_kill],
-            [red_gold.sum(), red_dragon, red_tower, red_kill]]
+    return [[sum(blue_gold), blue_dragon, blue_tower, blue_kill],
+            [sum(red_gold), red_dragon, red_tower, red_kill]]

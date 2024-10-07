@@ -7,7 +7,7 @@ import getAPI as api
 # TODO: 두번째로 실행
 
 # TODO: puuid json 가져오기
-with open("userPUUIDdata.json", "r") as f:
+with open("API/user_puuid_data.json", "r") as f:
     datas = json.load(f)
 
 userDatas = []
@@ -27,15 +27,13 @@ for userData in userDatas:
     for match in matchs.json():
         userMatchs.append(match)
 
-print(userMatchs)
-
 # TODO: 매치id들 저장
-if os.path.isfile("matchListData.json"):
-    with open("matchListData.json", 'w') as f:
+if os.path.isfile("API/match_list_data.json"):
+    with open("API/match_list_data.json", 'w') as f:
         # 수정된 내용으로 파일을 덮어씁니다.
         f.write("")
 
-with open("matchListData.json", "a+") as f:
+with open("API/match_list_data.json", "a+") as f:
     f.write("[\n")
     a = ""
     for match in userMatchs:

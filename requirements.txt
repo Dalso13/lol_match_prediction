@@ -1,0 +1,10 @@
+# coding: utf-8
+# 한글주석을 사용할때 위와 같이 인코딩 지정 해야됨
+
+# 설치 명령어 pip install -r requirements.txt
+
+numpy~=1.23.5
+pandas~=2.1.4
+scikit-learn~=1.2.2
+python-dotenv
+requests

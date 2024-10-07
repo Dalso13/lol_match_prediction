@@ -3,7 +3,7 @@ import ML.ml_lol as ml
 
 if __name__ == "__main__":
     # 파일 경로
-    file_path = 'match_data.csv'
+    file_path = 'API/match_data.csv'
 
     # 데이터 불러오기 및 준비
     data = ml.load_and_prepare_data(file_path)

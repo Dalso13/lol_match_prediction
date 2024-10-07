@@ -3,7 +3,7 @@ import os
 import requests
 import json
 import getAPI as api
-import getMatchParam as gp
+import API.get_match_param as gp
 
 # TODO: 세번째로 실행
 # TODO: 매치id 데이터를 가져오기

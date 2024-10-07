@@ -1,6 +1,6 @@
 # 5. 전체 실행
 import ML.ml_lol as ml
-import app.get_game_data as get_game_data
+import app.get_rt_data as get_rt_data
 
 def main():
     # 파일 경로
@@ -26,9 +26,9 @@ def realtime_data():
     name = input("닉네임을 입력하시오 (태그 X) : ")
     tag = input("태그를 입력하시오 (ex: KR1) : ")
 
-    puuid = get_game_data.get_puuid(name=name,tagline=tag)
+    puuid = get_rt_data.get_puuid(name=name,tagline=tag)
 
-    return get_game_data.get_game_data(puuid=puuid)
+    return get_rt_data.get_game_data(puuid=puuid)
 
 
 

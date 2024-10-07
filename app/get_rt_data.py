@@ -1,6 +1,6 @@
 import requests
 import API.getAPI as API
-import app.get_rt_match_param as get_rt_match_param
+import app.get_rt_match_param as gp
 
 def get_puuid(name,tagline):
     request = requests.get("https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/"+name+"/"+tagline+"?api_key="+API.getAPIKEY())
@@ -20,7 +20,7 @@ def get_game_data(puuid):
     # TODO: 아마 디도스 때문에 실시간 관전을 막아둔거 같음 ㅠ
     data = request.json()
 
-    return get_rt_match_param.getMatchParam(json=data)
+    return gp.getMatchParam(json=data)
 
 if __name__ == "__main__":
     pass

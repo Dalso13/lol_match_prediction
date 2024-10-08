@@ -1,7 +1,9 @@
 import pandas as pd
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+
 
 # 1. 데이터 불러오기 및 전처리
 def load_and_prepare_data(file_path):
@@ -10,7 +12,7 @@ def load_and_prepare_data(file_path):
 
     return match_data
 
-# 2. 데이터 준비 및 학습
+# 2. 데이터 준비 및 학습 후 저장
 def train_model(data):
     # 특성과 레이블 분리
     X = data[['total_gold', 'dragons', 'kills', 'towers_destroyed']]
@@ -27,8 +29,16 @@ def train_model(data):
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     print(f"모델 정확도: {accuracy * 100:.2f}%")
-    
-    return model
+
+    with open('LOL_pred_model', 'wb') as f:
+        pickle.dump(model, f)
+
+# 학습된 모델 가져오기
+def get_train_model(path):
+    with open(f"{path}", 'rb') as f:
+        model = pickle.load(f)
+
+    return model;
 
 # 3. 예측 함수
 def predict_win_rate(model, blue_team_stats, purple_team_stats):

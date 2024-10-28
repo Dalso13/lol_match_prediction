@@ -1,11 +1,15 @@
 def getMatchParam(json: dict):
     blue_gold = []
     red_gold = []
+    blue_level = 0
+    red_level = 0
     for data in json['info']['participants']:
         if data['teamId'] == 100:
             blue_gold.append(data['goldEarned'])
+            blue_level += data['champLevel']
         if data['teamId'] == 200:
             red_gold.append(data['goldEarned'])
+            red_level += data['champLevel']
 
     blue_dragon = json['info']['teams'][0]['objectives']['dragon']['kills']
     red_dragon = json['info']['teams'][1]['objectives']['dragon']['kills']
@@ -18,9 +22,11 @@ def getMatchParam(json: dict):
 
     blue_win = __boolEncoding(json['info']['teams'][0]['win'])
     red_win = __boolEncoding(json['info']['teams'][1]['win'])
+
+    gameDuration = json['info']['gameDuration']
     
-    return [[sum(blue_gold), blue_dragon, blue_tower, blue_kill, blue_win],
-            [sum(red_gold), red_dragon, red_tower, red_kill, red_win]]
+    return [[sum(blue_gold), blue_dragon, blue_tower, blue_kill, blue_level, gameDuration, blue_win],
+            [sum(red_gold), red_dragon, red_tower, red_kill, red_level, gameDuration, red_win]]
 
 
 def __boolEncoding(bool):

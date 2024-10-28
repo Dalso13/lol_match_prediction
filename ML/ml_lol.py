@@ -8,21 +8,20 @@ from sklearn.metrics import accuracy_score
 # 1. 데이터 불러오기 및 전처리
 def load_and_prepare_data(file_path):
     # 데이터 불러오기
-    match_data = pd.read_csv(file_path)
-
+    match_data = pd.read_csv(file_path,sep=',')
     return match_data
 
 # 2. 데이터 준비 및 학습 후 저장
 def train_model(data):
     # 특성과 레이블 분리
-    X = data[['total_gold', 'dragons', 'kills', 'towers_destroyed']]
+    X = data[['total_gold', 'dragons', 'towers_destroyed', 'kills','total_level','game_duration']]
     y = data['win']
     
     # 데이터를 학습 및 테스트 세트로 분리
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
     # 로지스틱 회귀 모델 학습
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=200)
     model.fit(X_train, y_train)
     
     # 테스트 세트로 정확도 평가
@@ -43,8 +42,8 @@ def get_train_model(path):
 # 3. 예측 함수
 def predict_win_rate(model, blue_team_stats, purple_team_stats):
     # 입력: 블루팀과 퍼플팀의 통계 (골드, 드래곤, 킬, 타워 파괴 수)
-    blue_stats = pd.DataFrame([blue_team_stats], columns=['total_gold', 'dragons', 'kills', 'towers_destroyed'])
-    purple_stats = pd.DataFrame([purple_team_stats], columns=['total_gold', 'dragons', 'kills', 'towers_destroyed'])
+    blue_stats = pd.DataFrame([blue_team_stats], columns=['total_gold', 'dragons', 'towers_destroyed', 'kills','total_level','game_duration'])
+    purple_stats = pd.DataFrame([purple_team_stats], columns=['total_gold', 'dragons', 'towers_destroyed', 'kills','total_level','game_duration'])
     
     # 블루팀과 퍼플팀의 승리 확률 예측
     blue_win_prob = model.predict_proba(blue_stats)[0][1]
@@ -53,6 +52,12 @@ def predict_win_rate(model, blue_team_stats, purple_team_stats):
     # 결과 출력
     print(f"블루팀 승리 확률: {blue_win_prob * 100:.2f}%")
     print(f"퍼플팀 승리 확률: {purple_win_prob * 100:.2f}%")
+    
+    # TODO: 결과가 독립 예측이라 높은거에 빼는 방식
+    # blue_win_rate = blue_win_prob * 100 if purple_win_prob < blue_win_prob else  100 - purple_win_prob * 100
+    # purple_win_rate = purple_win_prob * 100 if blue_win_prob < purple_win_prob else  100 - blue_win_prob * 100
+    # print(f"블루팀 승리 확률: {blue_win_rate:.2f}%")
+    # print(f"퍼플팀 승리 확률: {purple_win_rate:.2f}%")
 
 # 4. 사용자 입력 받기
 def get_team_stats(team_name):
@@ -61,4 +66,9 @@ def get_team_stats(team_name):
     dragons = int(input(f"{team_name}의 드래곤 처치 수를 입력하세요: "))
     kills = int(input(f"{team_name}의 킬 수를 입력하세요: "))
     towers_destroyed = int(input(f"{team_name}의 타워 파괴 수를 입력하세요: "))
-    return [total_gold, dragons, kills, towers_destroyed]
+    total_level = int(input(f"{team_name}의 총 레벨을 입력하세요: "))
+    minute = int(input(f"{team_name}의 게임 진행 시간을 입력하세요  (분): "))
+    second = int(input("(초): "))
+
+    duration = minute * 60 + second
+    return [total_gold, dragons, towers_destroyed, kills, total_level, duration]

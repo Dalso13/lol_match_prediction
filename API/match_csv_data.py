@@ -32,13 +32,12 @@ def get_match_csv_data(api_key, api_num=50, sqaure=0):
     if not os.path.isfile("API/match_data.csv"):
         with open("API/match_data.csv", 'w') as f:
             # 수정된 내용으로 파일을 덮어씁니다.
-            f.write("total_gold,dragons,towers_destroyed,kills,total_level,game_duration,win\n")
+            f.write("blue_gold,blue_dragons,blue_towers_destroyed,blue_kills,blue_total_level,red_gold,red_dragons,red_towers_destroyed,red_kills,red_total_level,game_duration,win\n")
 
     with open("API/match_data.csv", "a+") as f:
         text = ""
         for match in userMatchs:
             for data in match:
-                for d in data:
-                    text += str(d)+","
-                text = text[:-1]+"\n"
+                text += str(data)+","
+            text = text[:-1]+"\n"
         f.write(text)

@@ -10,5 +10,5 @@ if __name__ == '__main__':
     print(api_key[:-10])
     # puuid_data.get_puuid_data(api_key)
     # match_list_data.get_match_list(api_key)
-    match_csv_data.get_match_csv_data(api_key,api_num=49, sqaure=10)
+    match_csv_data.get_match_csv_data(api_key,api_num=99, sqaure=6)
 

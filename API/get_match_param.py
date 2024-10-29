@@ -21,12 +21,11 @@ def getMatchParam(json: dict):
     red_kill = json['info']['teams'][1]['objectives']['champion']['kills']
 
     blue_win = __boolEncoding(json['info']['teams'][0]['win'])
-    red_win = __boolEncoding(json['info']['teams'][1]['win'])
 
     gameDuration = json['info']['gameDuration']
     
-    return [[sum(blue_gold), blue_dragon, blue_tower, blue_kill, blue_level, gameDuration, blue_win],
-            [sum(red_gold), red_dragon, red_tower, red_kill, red_level, gameDuration, red_win]]
+    return [sum(blue_gold), blue_dragon, blue_tower, blue_kill, blue_level,sum(red_gold), red_dragon, red_tower, red_kill, red_level, gameDuration, blue_win]
+
 
 
 def __boolEncoding(bool):

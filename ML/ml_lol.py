@@ -1,8 +1,8 @@
 import pandas as pd
 import pickle
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-# from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
+#from sklearn.metrics import accuracy_score
 
 
 # 1. 데이터 불러오기 및 전처리
@@ -24,11 +24,16 @@ def train_model(data):
     # 원래 분리해서 모델 정확도 테스트 하는게 좋은데 데이터 아까워서 그냥 진행
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # 로지스틱 회귀 모델 학습
-    model = LogisticRegression(max_iter=500)
+    # 랜덤 포레스트 모델 학습
+    model = RandomForestClassifier( #n_estimators = 20,
+                                   # min_samples_split = 7,
+                                   # bootstrap = True,
+                                   )
+    # model.fit(X_train, y_train)
     model.fit(X, y)
 
     # 테스트 세트로 정확도 평가
+    # 모델 정확도가 100%가 나옴;;
     # y_pred = model.predict(X_test)
     # accuracy = accuracy_score(y_test, y_pred)
     # print(f"모델 정확도: {accuracy * 100:.2f}%")
@@ -57,7 +62,7 @@ def predict_win_rate(model, match_datas):
 
     # 결과 출력
     print(f"블루팀 승리 확률: {win_prob * 100:.2f}%")
-    print(f"퍼플팀 승리 확률: {100 - win_prob * 100:.2f}%")
+    print(f"레드팀 승리 확률: {100 - win_prob * 100:.2f}%")
 
 
 # 4. 사용자 입력 받기
